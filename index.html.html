@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Banking Interface</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .box {
+            background-color: white;
+            padding: 30px;
+            width: 320px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 0 10px gray;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 90%;
+            padding: 8px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            width: 120px;
+            padding: 10px;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .deposit {
+            background-color: blue;
+        }
+
+        .withdraw {
+            background-color: red;
+        }
+
+        .message {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box">
+        <h1>Balance: $<span id="balance">1000</span></h1>
+
+        <label>Amount</label><br><br>
+        <input type="number" id="amount" placeholder="Enter amount">
+
+        <br>
+
+        <button class="deposit" onclick="deposit()">Deposit</button>
+        <button class="withdraw" onclick="withdraw()">Withdraw</button>
+
+        <p id="msg" class="message"></p>
+    </div>
+
+    <script>
+        let balance = 1000;
+
+        function deposit() {
+            let amt = document.getElementById("amount").value;
+            amt = Number(amt);
+
+            if (amt <= 0) {
+                showMessage("Invalid amount!", "red");
+                return;
+            }
+
+            balance += amt;
+            updateBalance();
+            showMessage("Amount deposited successfully!", "green");
+        }
+
+        function withdraw() {
+            let amt = document.getElementById("amount").value;
+            amt = Number(amt);
+
+            if (amt <= 0 || amt > balance) {
+                showMessage("Invalid or insufficient balance!", "red");
+                return;
+            }
+
+            balance -= amt;
+            updateBalance();
+            showMessage("Amount withdrawn successfully!", "green");
+        }
+
+        function updateBalance() {
+            document.getElementById("balance").innerText = balance;
+            document.getElementById("amount").value = "";
+        }
+
+        function showMessage(text, color) {
+            let msg = document.getElementById("msg");
+            msg.innerText = text;
+            msg.style.color = color;
+        }
+    </script>
+
+</body>
+</html>
